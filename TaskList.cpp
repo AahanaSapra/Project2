@@ -133,17 +133,42 @@ void TaskList::clear() {
 
 void TaskList::printAll() const {
     // TODO: Print all tasks to cerr
+    Node* curr = head;
+    while (curr != nullptr) {
+        std::cerr << curr->task << std::endl;
+        curr = curr->next;
+    }
 }
 
 void TaskList::copyList(const TaskList& other) {
     // TODO: Deep copy all nodes from other
+    Node* curr = other.head; // use .head instead of ->head for references
+    while (curr != nullptr) {
+        addBack(curr->task);
+        curr = curr->next;
+    }
 }
 
 void TaskList::freeList() {
     // TODO: Free all nodes
+    Node* curr = head;
+    while (curr != nullptr) {
+        Node* temp = curr->next;
+        delete curr;
+        curr = temp;
+    }
+
+    head = nullptr;
+    tail = nullptr;
+    size = 0;
 }
 
 TaskList::Node* TaskList::getNode(int pos) const {
+    // Invalid pos
+    if (pos < 0 || pos >= size) {
+        return nullptr;
+    }
+
     Node* curr = head;
     int index = 0;
 
