@@ -12,14 +12,35 @@ TaskList::TaskList() {
 
 TaskList::~TaskList() {
     // TODO: Free all allocated memory
+    freeList();
 }
 
 TaskList::TaskList(const TaskList& other) {
     // TODO: Copy constructor logic
+    // 1. determine resources used by src object
+    // 2. allocated matching set of resources for target object
+    head = nullptr;
+    tail = nullptr;
+    size = 0;
+    
+    // 3. copy contents of src object to target object
+    copyList(other);
 }
 
 TaskList& TaskList::operator=(const TaskList& rhs) {
     // TODO: Assignment operator logic
+    // 0. check for aliasing
+    if (this != &rhs) {
+        // 1. free resources held by target object
+        // 2. determine resources used by src object
+        // 3. allocate matching set of resources for target object
+        // 4. copy contents of src object to target object
+        freeList();
+
+        copyList(rhs);
+    }
+    
+    // 5. return reference to target object
     return *this;
 }
 
@@ -74,6 +95,7 @@ int TaskList::find(const std::string& task) const {
 
 void TaskList::clear() {
     // TODO: Clear the list
+    freeList();
 }
 
 void TaskList::printAll() const {
@@ -89,5 +111,15 @@ void TaskList::freeList() {
 }
 
 TaskList::Node* TaskList::getNode(int pos) const {
+    Node* curr = head;
+    int index = 0;
+
+    while (curr != nullptr) {
+        if (index == pos) {
+            return curr;
+        }
+        curr = curr->next;
+        index++;
+    }
     return nullptr; // TODO: Return pointer to node at pos
 }
