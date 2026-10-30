@@ -5,6 +5,9 @@
 
 TaskList::TaskList() {
     // TODO: Initialize members
+    head = nullptr;
+    tail = nullptr;
+    size = 0;
 }
 
 TaskList::~TaskList() {
@@ -21,11 +24,11 @@ TaskList& TaskList::operator=(const TaskList& rhs) {
 }
 
 bool TaskList::empty() const {
-    return false; // TODO: Return true if list is empty
+    return (size == 0); // TODO: Return true if list is empty
 }
 
 int TaskList::size() const {
-    return 0; // TODO: Return actual size
+    return size; // TODO: Return actual size
 }
 
 void TaskList::addBack(const std::string& task) {
@@ -37,10 +40,35 @@ bool TaskList::removeFront() {
 }
 
 bool TaskList::get(int pos, std::string& task) const {
+    Node* curr = head;
+    int index = 0;
+
+    while (curr != nullptr) {
+        if (index == pos) {
+            task = curr->task;
+            return true;
+        }
+
+        curr = curr->next;
+        index++;
+    }
+
     return false; // TODO: Retrieve task at pos
 }
 
 int TaskList::find(const std::string& task) const {
+    Node* curr = head;
+    int index = 0;
+
+    while (curr != nullptr) {
+        if (curr->task == task) {
+            return index;
+        }
+
+        curr = curr->next;
+        index++;
+    }
+
     return -1; // TODO: Return index of task or -1
 }
 
