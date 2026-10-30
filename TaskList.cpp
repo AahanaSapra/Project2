@@ -54,10 +54,43 @@ int TaskList::size() const {
 
 void TaskList::addBack(const std::string& task) {
     // TODO: Add new node to back
+    Node* newNode = new Node(task, nullptr, nullptr);
+
+    // Empty list
+    if (empty()) {
+        head = newNode;
+        tail = newNode;
+    }
+    else {
+        tail->next = newNode;
+        newNode->prev = tail;
+        tail = newNode;
+    }
+
+    size++;
 }
 
 bool TaskList::removeFront() {
-    return false; // TODO: Remove first node
+    // Check if list is empty
+    if (empty()) {
+        return false;
+    }
+
+    Node* temp = head;
+    head = head->next;
+    
+    if (head != nullptr) {
+        head->prev = nullptr;
+    }
+    // List becomes empty after removal
+    else {
+        tail = nullptr;
+    }
+
+    delete temp;
+    size--;
+
+    return true; // TODO: Remove first node
 }
 
 bool TaskList::get(int pos, std::string& task) const {
