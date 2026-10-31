@@ -1,6 +1,8 @@
 #ifndef TASKLIST_H
 #define TASKLIST_H
 
+#include <string>
+
 // TODO: Define the TaskList class as specified in spec.txt
 class TaskList {
 public:
@@ -33,7 +35,7 @@ private:
 	Node* head;
 	Node* tail;
 
-	int size;
+	int m_size;
 
 	// Helper Functions
 	void copyList(const TaskList& other);

@@ -1,5 +1,6 @@
 #include "TaskList.h"
 #include <iostream>
+#include <string>
 
 // TODO: Implement all member functions
 
@@ -7,7 +8,7 @@ TaskList::TaskList() {
     // TODO: Initialize members
     head = nullptr;
     tail = nullptr;
-    size = 0;
+    m_size = 0;
 }
 
 TaskList::~TaskList() {
@@ -21,7 +22,7 @@ TaskList::TaskList(const TaskList& other) {
     // 2. allocated matching set of resources for target object
     head = nullptr;
     tail = nullptr;
-    size = 0;
+    m_size = 0;
     
     // 3. copy contents of src object to target object
     copyList(other);
@@ -45,11 +46,11 @@ TaskList& TaskList::operator=(const TaskList& rhs) {
 }
 
 bool TaskList::empty() const {
-    return (size == 0); // TODO: Return true if list is empty
+    return (m_size == 0); // TODO: Return true if list is empty
 }
 
 int TaskList::size() const {
-    return size; // TODO: Return actual size
+    return m_size; // TODO: Return actual size
 }
 
 void TaskList::addBack(const std::string& task) {
@@ -67,7 +68,7 @@ void TaskList::addBack(const std::string& task) {
         tail = newNode;
     }
 
-    size++;
+    m_size++;
 }
 
 bool TaskList::removeFront() {
@@ -88,7 +89,7 @@ bool TaskList::removeFront() {
     }
 
     delete temp;
-    size--;
+    m_size--;
 
     return true; // TODO: Remove first node
 }
@@ -160,12 +161,12 @@ void TaskList::freeList() {
 
     head = nullptr;
     tail = nullptr;
-    size = 0;
+    m_size = 0;
 }
 
 TaskList::Node* TaskList::getNode(int pos) const {
     // Invalid pos
-    if (pos < 0 || pos >= size) {
+    if (pos < 0 || pos >= m_size) {
         return nullptr;
     }
 
