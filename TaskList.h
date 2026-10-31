@@ -27,8 +27,8 @@ private:
 	struct Node {
 		std::string task;
 
-		Node* next;
-		Node* prev;
+		Node* next = nullptr;
+		Node* prev = nullptr;
 	};
 
 	// Member Variables
@@ -40,7 +40,7 @@ private:
 	// Helper Functions
 	void copyList(const TaskList& other);
 	void freeList();
-	Node* getNode(int pos) const;
+	TaskList::Node* getNode(int pos) const;
 
 };
 

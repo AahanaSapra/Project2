@@ -4,20 +4,22 @@
 
 // TODO: Implement all member functions
 
+// TODO: Initialize members
 TaskList::TaskList() {
-    // TODO: Initialize members
     head = nullptr;
     tail = nullptr;
     m_size = 0;
 }
 
+
+// TODO: Free all allocated memory
 TaskList::~TaskList() {
-    // TODO: Free all allocated memory
     freeList();
 }
 
+
+// TODO: Copy constructor logic
 TaskList::TaskList(const TaskList& other) {
-    // TODO: Copy constructor logic
     // 1. determine resources used by src object
     // 2. allocated matching set of resources for target object
     head = nullptr;
@@ -28,16 +30,17 @@ TaskList::TaskList(const TaskList& other) {
     copyList(other);
 }
 
+
+// TODO: Assignment operator logic
 TaskList& TaskList::operator=(const TaskList& rhs) {
-    // TODO: Assignment operator logic
     // 0. check for aliasing
     if (this != &rhs) {
         // 1. free resources held by target object
         // 2. determine resources used by src object
         // 3. allocate matching set of resources for target object
-        // 4. copy contents of src object to target object
         freeList();
 
+        // 4. copy contents of src object to target object
         copyList(rhs);
     }
     
@@ -45,20 +48,25 @@ TaskList& TaskList::operator=(const TaskList& rhs) {
     return *this;
 }
 
+
+// TODO: Return true if list is empty
 bool TaskList::empty() const {
-    return (m_size == 0); // TODO: Return true if list is empty
+    return (m_size == 0); 
 }
 
+
+// TODO: Return actual size
 int TaskList::size() const {
-    return m_size; // TODO: Return actual size
+    return m_size; 
 }
 
-void TaskList::addBack(const std::string& task) {
-    // TODO: Add new node to back
-    Node* newNode = new Node(task, nullptr, nullptr);
 
-    // Empty list
-    if (empty()) {
+// TODO: Add new node to back
+void TaskList::addBack(const std::string& task) {
+    Node* newNode = new Node;
+    newNode->task = task;
+
+	if (empty()) { // Check if list is empty
         head = newNode;
         tail = newNode;
     }
@@ -68,9 +76,11 @@ void TaskList::addBack(const std::string& task) {
         tail = newNode;
     }
 
-    m_size++;
+	m_size++; // Increment size
 }
 
+
+// TODO: Remove first node
 bool TaskList::removeFront() {
     // Check if list is empty
     if (empty()) {
@@ -89,12 +99,19 @@ bool TaskList::removeFront() {
     }
 
     delete temp;
-    m_size--;
+	m_size--; // Decrement size
 
-    return true; // TODO: Remove first node
+    return true; 
 }
 
+
+// TODO: Retrieve task at pos
 bool TaskList::get(int pos, std::string& task) const {
+    // Check if pos invalid
+    if (pos < 0 || pos >= m_size) {
+        return false;
+    }
+
     Node* curr = head;
     int index = 0;
 
@@ -108,9 +125,11 @@ bool TaskList::get(int pos, std::string& task) const {
         index++;
     }
 
-    return false; // TODO: Retrieve task at pos
+    return false; 
 }
 
+
+// TODO: Return index of task or -1
 int TaskList::find(const std::string& task) const {
     Node* curr = head;
     int index = 0;
@@ -124,16 +143,18 @@ int TaskList::find(const std::string& task) const {
         index++;
     }
 
-    return -1; // TODO: Return index of task or -1
+    return -1; 
 }
 
+
+// TODO: Clear the list
 void TaskList::clear() {
-    // TODO: Clear the list
     freeList();
 }
 
+
+// TODO: Print all tasks to cerr
 void TaskList::printAll() const {
-    // TODO: Print all tasks to cerr
     Node* curr = head;
     while (curr != nullptr) {
         std::cerr << curr->task << std::endl;
@@ -141,8 +162,9 @@ void TaskList::printAll() const {
     }
 }
 
+
+// TODO: Deep copy all nodes from other
 void TaskList::copyList(const TaskList& other) {
-    // TODO: Deep copy all nodes from other
     Node* curr = other.head; // use .head instead of ->head for references
     while (curr != nullptr) {
         addBack(curr->task);
@@ -150,8 +172,9 @@ void TaskList::copyList(const TaskList& other) {
     }
 }
 
+
+// TODO: Free all nodes
 void TaskList::freeList() {
-    // TODO: Free all nodes
     Node* curr = head;
     while (curr != nullptr) {
         Node* temp = curr->next;
@@ -164,8 +187,10 @@ void TaskList::freeList() {
     m_size = 0;
 }
 
+
+// TODO: Return pointer to node at pos
 TaskList::Node* TaskList::getNode(int pos) const {
-    // Invalid pos
+    // Check if pos invalid
     if (pos < 0 || pos >= m_size) {
         return nullptr;
     }
@@ -180,5 +205,5 @@ TaskList::Node* TaskList::getNode(int pos) const {
         curr = curr->next;
         index++;
     }
-    return nullptr; // TODO: Return pointer to node at pos
+    return nullptr; 
 }

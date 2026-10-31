@@ -1,17 +1,162 @@
-CSCI Project 2 - TaskList
-==========================
+﻿Student Name: Aahana Sapra
+Date: 10/30/2026
+________________
 
-Student Name: _________________________
-Date: ________________________________
 
-Design Description:
--------------------
-(Describe your linked list design, node structure, use of head/tail pointers.)
+PROGRAM OVERVIEW
+The purpose of this program is to implement a Task List using a doubly linked list.
 
-Pseudocode:
------------
-(Add pseudocode for your major functions such as addBack, removeFront, get, find, copyList, etc.)
 
-Test Cases:
------------
-(List and describe test cases you used to validate your implementation.)
+________________
+
+
+PROGRAM DESIGN
+CLASS: TaskList
+* Node struct members for doubly linked list with string type data:
+   * string task
+   * Node* next
+   * Node* prev
+* Linked list member variables to track both head and tail as well as list size:
+   * Node* head
+   * Node* tail
+   * int m_size
+
+
+PSEUDOCODE: void addBack(const std::string& task)
+INIT newNode
+SET newNode->task to task
+
+
+IF linkedList EMPTY
+    SET head to newNode
+    SET tail to newNode
+ELSE
+    SET tail->next to newNode
+    SET newNode->prev to tail
+    SET tail to newNode
+ENDIF
+
+
+INCREMENT m_size
+	
+
+PSEUDOCODE: bool removeFront()
+IF linkedList EMPTY
+    RETURN false
+ENDIF
+
+
+INIT temp to head
+SET head to head->next
+
+
+IF head NOT nullptr
+    SET head->prev to nullptr
+ELSE 
+    SET tail to nullptr
+ENDIF
+
+
+DELETE temp
+DECREMENT m_size
+
+
+RETURN true
+	
+
+PSEUDOCODE: bool get(int pos, std::string& task) const
+IF pos INVALID
+        RETURN false
+ENDIF
+
+
+INIT curr to head
+INIT index to 0
+
+
+WHILE curr NOT nullptr
+    IF index IS pos
+        SET task to curr->task
+        RETURN true
+    ENDIF
+    
+    SET curr to curr->next
+    INCREMENT index
+ENDWHILE
+
+
+RETURN false
+	
+
+PSEUDOCODE: int find(const std::string& task) const
+INIT curr to head
+INIT index to 0
+
+
+WHILE curr NOT nullptr
+    IF curr->task IS task
+        RETURN index
+    ENDIF
+    
+    SET curr to curr->next
+    INCREMENT index
+ENDWHILE
+
+
+RETURN -1
+	
+
+PSEUDOCODE: void copyList(const TaskList& other);
+SET curr to other.head
+WHILE curr NOT nullptr
+    CALL addback(curr->task)
+    SET curr to curr->next
+ENDWHILE
+	
+
+PSEUDOCODE: void freeList();
+SET curr to head
+WHILE curr NOT nullptr
+    INIT temp to curr->next
+    DELETE curr
+    SET curr to temp
+ENDWHILE
+
+
+SET head to nullptr
+SET tail to nullptr
+SET m_size to 0
+	
+
+________________
+
+
+TEST CASES
+TEST CASE 1: Initial State Verification
+* Purpose: verify that an uninitialized list is empty, has a size of 0, handles out-of-bound searches, and doesn’t crash on removal attempts
+
+
+TEST CASE 2: Daily Task Queue
+* Task: "Reply to client emails"
+* Purpose: verify linked list behavior (empty check, size check, and removal) with single node
+
+
+TEST CASE 3: Student Assignment Tracker
+* Tasks: "Finish history essay", "Study for math quiz"
+* Purpose: verify accurate search and index retrieval
+
+
+TEST CASE 4: Restaurant Kitchen Prep
+* Tasks: "Chop vegetables", "Marinate chicken"
+* Purpose: verify accurate removal of tasks and complete clearing of list
+
+
+TEST CASE 5: Personal Productivity Bot
+* Object 1: list
+   * Tasks: “Task A”, “Task B”, “Task C” (added after initializing copyList)
+* Object 2: copyList
+   * Tasks: “Task A”, “Task B”
+* Object 3: assignedList
+   * Original Tasks: “Task 1”, “Task 2”
+   * Final Tasks: “Task A”, “Task B”, “Task C”
+* Purpose: verify copy constructor and assignment operator functionality
